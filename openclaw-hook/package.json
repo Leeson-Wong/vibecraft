@@ -1,0 +1,27 @@
+{
+  "name": "openclaw-vibecraft-hook",
+  "version": "1.0.0",
+  "description": "OpenClaw hook for Vibecraft 3D visualization",
+  "type": "module",
+  "main": "handler.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "keywords": [
+    "openclaw",
+    "hook",
+    "vibecraft",
+    "3d",
+    "visualization"
+  ],
+  "author": "Vibecraft Contributors",
+  "license": "MIT",
+  "dependencies": {
+    "openclaw": "^0.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}

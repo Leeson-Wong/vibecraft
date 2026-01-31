@@ -16,10 +16,17 @@ Vibecraft uses your own local Claude Code instances — no files or prompts are 
 
 ## Requirements
 
+### For Claude Code (macOS/Linux)
 - **macOS or Linux** (Windows not supported - hooks require bash)
-- **Node.js** 18+
 - **jq** - for hook scripts (`brew install jq` / `apt install jq`)
 - **tmux** - for session management (`brew install tmux` / `apt install tmux`)
+
+### For OpenClaw (All platforms)
+- **Node.js** 18+
+- **OpenClaw** - [github.com/openclaw/openclaw](https://github.com/openclaw/openclaw)
+
+### General
+- **Node.js** 18+
 
 ## Quick Start
 
@@ -45,6 +52,51 @@ cd vibecraft && npm install && npm run dev
 ```
 
 **To uninstall:** `npx vibecraft uninstall` (removes hooks, keeps your data)
+
+## OpenClaw Integration
+
+Vibecraft now supports **OpenClaw** - a universal AI gateway that works with Claude, OpenAI, and other models. This enables Windows users and those who prefer OpenClaw's unified interface to use Vibecraft's 3D visualization.
+
+### Quick Start with OpenClaw
+
+```bash
+# 1. Install OpenClaw
+npm install -g openclaw
+
+# 2. Start Vibecraft server
+npx vibecraft
+
+# 3. Install and enable the Vibecraft hook for OpenClaw
+cd ~/.openclaw/hooks
+git clone https://github.com/nearcyan/vibecraft vibecraft
+cd vibecraft
+openclaw hooks enable vibecraft
+
+# 4. Set Vibecraft server URL (optional, defaults to localhost:4003)
+export VIBECRAFT_SERVER_URL="http://localhost:4003/event"
+
+# 5. Use OpenClaw normally
+openclaw agent --message "Read the package.json file"
+```
+
+Open http://localhost:4003 and watch the 3D visualization update in real-time as OpenClaw uses tools!
+
+### Tool Mapping
+
+| OpenClaw Tool | Vibecraft Tool | Station |
+|---------------|----------------|---------|
+| `read_file` | `Read` | Bookshelf |
+| `write_file` | `Write` | Desk |
+| `edit_file` | `Edit` | Workbench |
+| `exec` / `bash` | `Bash` | Terminal |
+| `web_search` | `WebSearch` | Antenna |
+| `web_fetch` | `WebFetch` | Antenna |
+| `grep` | `Grep` | Scanner |
+| `glob` | `Glob` | Scanner |
+| `task` | `Task` | Portal |
+| `todo` | `TodoWrite` | Taskboard |
+
+See [openclaw-hook/HOOK.md](openclaw-hook/HOOK.md) for detailed documentation.
 
 ## Browser Control (Optional)
 
