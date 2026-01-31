@@ -1,4 +1,19 @@
-import type { HookHandler } from 'openclaw';
+interface OpenClawEvent {
+  type: 'tool' | 'command' | 'message';
+  action: string;
+  sessionKey: string;
+  data: {
+    toolName?: string;
+    toolId?: string;
+    input?: Record<string, unknown>;
+    output?: Record<string, unknown>;
+    success?: boolean;
+    cwd?: string;
+    prompt?: string;
+    message?: string;
+    response?: string;
+  };
+}
 
 interface VibecraftEvent {
   id: string;
@@ -63,7 +78,7 @@ async function sendToVibecraft(event: VibecraftEvent): Promise<void> {
   }
 }
 
-const vibecraftHandler: HookHandler = async (event) => {
+const vibecraftHandler = async (event: OpenClawEvent): Promise<void> => {
   const { type, action, sessionKey, data } = event;
 
   const cwd = data?.cwd || process.cwd();
@@ -76,9 +91,8 @@ const vibecraftHandler: HookHandler = async (event) => {
         type: 'pre_tool_use',
         sessionId: sessionKey,
         cwd,
-        tool: getVibecraftToolName(data.toolName),
+        tool: getVibecraftToolName(data.toolName || ''),
         toolInput: data.input || {},
-        toolUseId: data.toolId || generateEventId(sessionKey),
       };
       await sendToVibecraft(vibecraftEvent);
     } else if (action === 'complete') {
@@ -88,10 +102,9 @@ const vibecraftHandler: HookHandler = async (event) => {
         type: 'post_tool_use',
         sessionId: sessionKey,
         cwd,
-        tool: getVibecraftToolName(data.toolName),
+        tool: getVibecraftToolName(data.toolName || ''),
         toolInput: data.input || {},
         toolResponse: data.output || {},
-        toolUseId: data.toolId || generateEventId(sessionKey),
         success: data.success !== false,
       };
       await sendToVibecraft(vibecraftEvent);

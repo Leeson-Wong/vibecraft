@@ -17,9 +17,6 @@
   ],
   "author": "Vibecraft Contributors",
   "license": "MIT",
-  "dependencies": {
-    "openclaw": "^0.1.0"
-  },
   "devDependencies": {
     "@types/node": "^20.0.0",
     "typescript": "^5.0.0"
