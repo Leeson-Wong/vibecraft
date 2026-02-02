@@ -15,6 +15,7 @@ env:
   REGISTRY: registry.cn-hangzhou.aliyuncs.com
   IMAGE_NAME: vibecraft
   NAMESPACE: library
+  # 默认命名空间，可以在仓库secrets中通过NAMESPACE覆盖
 
 jobs:
   build-and-push:
@@ -44,12 +45,11 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=ref,event=branch
-            type=ref,event=pr
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
             type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=main-{{sha}},enable={{is_default_branch}}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
