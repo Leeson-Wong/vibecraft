@@ -88,6 +88,12 @@ const TMUX_SESSION = process.env.VIBECRAFT_TMUX_SESSION ?? DEFAULTS.TMUX_SESSION
 const SESSIONS_FILE = resolve(expandHome(process.env.VIBECRAFT_SESSIONS_FILE ?? DEFAULTS.SESSIONS_FILE))
 const TILES_FILE = resolve(expandHome(process.env.VIBECRAFT_TILES_FILE ?? '~/.vibecraft/data/tiles.json'))
 
+/** Allowed origins for WebSocket and CORS (comma-separated list from env) */
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS ?? '')
+  .split(',')
+  .map(s => s.trim())
+  .filter(Boolean)
+
 /** Time before a "working" session auto-transitions to idle (failsafe for missed events) */
 const WORKING_TIMEOUT_MS = 120_000 // 2 minutes
 
@@ -135,6 +141,43 @@ function isOriginAllowed(origin: string | undefined): boolean {
     // Production: exact hostname match with HTTPS required
     if (url.hostname === 'vibecraft.sh' && url.protocol === 'https:') {
       return true
+    }
+
+    // Check against ALLOWED_ORIGINS environment variable
+    // Supports exact match, wildcard subdomain, and protocol-specific matching
+    for (const allowed of ALLOWED_ORIGINS) {
+      try {
+        const allowedUrl = new URL(allowed)
+
+        // Exact match
+        if (allowed === origin) {
+          return true
+        }
+
+        // Hostname match (ignore protocol and port for flexible matching)
+        if (allowedUrl.hostname === url.hostname) {
+          // If allowed origin specifies a protocol, check it matches
+          if (allowedUrl.protocol && allowedUrl.protocol !== url.protocol) {
+            continue
+          }
+          // If allowed origin specifies a port, check it matches
+          if (allowedUrl.port && allowedUrl.port !== url.port) {
+            continue
+          }
+          return true
+        }
+
+        // Wildcard subdomain support: *.example.com
+        if (allowedUrl.hostname.startsWith('*.')) {
+          const domain = allowedUrl.hostname.slice(2) // Remove *.
+          if (url.hostname.endsWith(domain)) {
+            return true
+          }
+        }
+      } catch {
+        // Invalid allowed origin, skip it
+        continue
+      }
     }
 
     return false

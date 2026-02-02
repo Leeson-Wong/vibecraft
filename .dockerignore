@@ -1,0 +1,39 @@
+# Node
+node_modules
+npm-debug.log
+
+# Git
+.git
+.gitignore
+
+# Build artifacts (will be rebuilt in container)
+dist
+
+# Documentation
+docs
+*.md
+!README.md
+
+# Development files
+.vscode
+.idea
+*.log
+
+# Test files
+test
+tests
+*.test.ts
+*.spec.ts
+
+# Environment
+.env
+.env.local
+
+# Data
+data
+.vibecraft
+
+# Misc
+.DS_Store
+*.swp
+*.swo

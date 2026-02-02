@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  vibecraft:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vibecraft
+    restart: unless-stopped
+
+    ports:
+      - "${VIBECRAFT_PORT:-4002}:4002"  # Frontend
+      - "${VIBECRAFT_WS_PORT:-4003}:4003"  # WebSocket/API server
+
+    volumes:
+      # Data persistence
+      - vibecraft-data:/home/vibecraft/.vibecraft
+
+      # Mount your projects directory here for Claude to work with
+      # - /path/to/your/projects:/app/projects:rw
+
+    environment:
+      # Server configuration
+      - VIBECRAFT_PORT=${VIBECRAFT_WS_PORT:-4003}
+      - VIBECRAFT_CLIENT_PORT=${VIBECRAFT_PORT:-4002}
+
+      # Allowed origins for WebSocket connections (comma-separated)
+      # 格式: http://IP:PORT 或 https://domain.com
+      # 多个地址用逗号分隔
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-http://localhost:4002,http://127.0.0.1:4002}
+
+      # Debug mode
+      - VIBECRAFT_DEBUG=${VIBECRAFT_DEBUG:-false}
+
+      # tmux session name
+      - VIBECRAFT_TMUX_SESSION=${VIBECRAFT_TMUX_SESSION:-claude}
+
+      # Deepgram API key (optional, for voice input)
+      - DEEPGRAM_API_KEY=${DEEPGRAM_API_KEY:-}
+
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:4003/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+volumes:
+  vibecraft-data:
+    driver: local
