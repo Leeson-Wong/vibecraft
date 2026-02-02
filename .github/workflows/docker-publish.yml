@@ -14,8 +14,7 @@ on:
 env:
   REGISTRY: registry.cn-hangzhou.aliyuncs.com
   IMAGE_NAME: vibecraft
-  NAMESPACE: library
-  # 默认命名空间，可以在仓库secrets中通过NAMESPACE覆盖
+  NAMESPACE: wls_gdd
 
 jobs:
   build-and-push:

@@ -2,8 +2,8 @@
 # 推送到阿里云容器镜像服务
 
 param(
-    [Parameter(Mandatory=$false, HelpMessage="命名空间，默认: library")]
-    [string]$Namespace = "library",
+    [Parameter(Mandatory=$false, HelpMessage="命名空间，默认: wls_gdd")]
+    [string]$Namespace = "wls_gdd",
 
     [Parameter(Mandatory=$false, HelpMessage="镜像版本标签，默认: latest")]
     [string]$Tag = "latest",
@@ -39,6 +39,7 @@ function ErrorMsg {
 $REGISTRY = "registry.cn-hangzhou.aliyuncs.com"
 $USERNAME = "乐观山里娃"
 $IMAGE_NAME = "vibecraft"
+$DEFAULT_NAMESPACE = "wls_gdd"
 $FULL_IMAGE = "${REGISTRY}/${Namespace}/${IMAGE_NAME}"
 
 # 显示横幅

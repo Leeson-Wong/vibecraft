@@ -25,7 +25,7 @@ error() {
 }
 
 # 默认值
-NAMESPACE="library"
+NAMESPACE="wls_gdd"
 TAG="latest"
 PUSH_STABLE=false
 
@@ -48,13 +48,13 @@ while [[ $# -gt 0 ]]; do
             echo "用法: $0 [OPTIONS]"
             echo ""
             echo "选项:"
-            echo "  -n, --namespace NAMESPACE  命名空间 (默认: library)"
+            echo "  -n, --namespace NAMESPACE  命名空间 (默认: wls_gdd)"
             echo "  -t, --tag TAG             版本标签 (默认: latest)"
             echo "  -s, --stable              同时推送 stable 标签"
             echo "  -h, --help                显示帮助信息"
             echo ""
             echo "示例:"
-            echo "  $0                          # 推送到 library:latest"
+            echo "  $0                          # 推送到 wls_gdd:latest"
             echo "  $0 -n mynamespace -t v1.0.0 # 推送到 mynamespace:v1.0.0"
             echo "  $0 -s                       # 推送到 latest 和 stable"
             exit 0

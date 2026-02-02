@@ -4,11 +4,11 @@
 
 ```
 仓库地址: registry.cn-hangzhou.aliyuncs.com
-命名空间: library
+命名空间: wls_gdd
 镜像名称: vibecraft
 用户名: 乐观山里娃
 
-完整地址: registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+完整地址: registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 ```
 
 ---
@@ -25,7 +25,7 @@ docker login --username=乐观山里娃 registry.cn-hangzhou.aliyuncs.com
 ### 2. 拉取镜像
 
 ```bash
-docker pull registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+docker pull registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 ```
 
 ### 3. 运行容器
@@ -38,7 +38,7 @@ docker run -d \
   -p 4002:4002 \
   -p 4003:4003 \
   -v vibecraft-data:/home/vibecraft/.vibecraft \
-  registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+  registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 
 # 公网访问 - 关键配置！
 docker run -d \
@@ -48,7 +48,7 @@ docker run -d \
   -p 4003:4003 \
   -v vibecraft-data:/home/vibecraft/.vibecraft \
   -e ALLOWED_ORIGINS="http://localhost:4002,http://47.96.93.247:4002" \
-  registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+  registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 ```
 
 ---
@@ -158,7 +158,7 @@ git push origin v1.0.0
 
 ```bash
 # 1. 拉取镜像
-docker pull registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+docker pull registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 
 # 2. 运行容器（使用内网IP）
 docker run -d \
@@ -168,7 +168,7 @@ docker run -d \
   -p 4003:4003 \
   -v vibecraft-data:/home/vibecraft/.vibecraft \
   -e ALLOWED_ORIGINS="http://localhost:4002,http://YOUR-ECS-INTERNAL-IP:4002" \
-  registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+  registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 
 # 3. 配置安全组开放端口
 # 阿里云控制台 → ECS → 安全组 → 添加规则
@@ -184,7 +184,7 @@ docker run -d \
   -p 127.0.0.1:4003:4003 \
   -v vibecraft-data:/home/vibecraft/.vibecraft \
   -e ALLOWED_ORIGINS="https://your-domain.com" \
-  registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+  registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 
 # 2. 配置Nginx
 server {
@@ -218,7 +218,7 @@ docker run -d \
   -p 4003:4003 \
   -v vibecraft-dev-data:/home/vibecraft/.vibecraft \
   -e ALLOWED_ORIGINS="http://localhost:4002" \
-  registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+  registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 
 # 实例2 - 生产环境
 docker run -d \
@@ -227,7 +227,7 @@ docker run -d \
   -p 8083:4003 \
   -v vibecraft-prod-data:/home/vibecraft/.vibecraft \
   -e ALLOWED_ORIGINS="https://your-domain.com" \
-  registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+  registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 ```
 
 ---
@@ -242,7 +242,7 @@ docker stop vibecraft
 docker rm vibecraft
 
 # 2. 拉取最新镜像
-docker pull registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+docker pull registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 
 # 3. 使用相同的volume重新启动
 docker run -d \
@@ -252,7 +252,7 @@ docker run -d \
   -p 4003:4003 \
   -v vibecraft-data:/home/vibecraft/.vibecraft \
   -e ALLOWED_ORIGINS="http://localhost:4002,http://47.96.93.247:4002" \
-  registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+  registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 ```
 
 ### 备份数据
@@ -300,7 +300,7 @@ docker run -d \
   -p 4003:4003 \
   -v vibecraft-data:/home/vibecraft/.vibecraft \
   -e ALLOWED_ORIGINS="http://YOUR-ACCESS-ADDRESS" \
-  registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+  registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 ```
 
 ### 问题3：镜像标签问题
@@ -308,7 +308,7 @@ docker run -d \
 查看可用标签：
 ```bash
 # 登录后查看
-docker search registry.cn-hangzhou.aliyuncs.com/library/vibecraft
+docker search registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft
 
 # 或使用 curl
 curl -X GET "https://cr.console.aliyun.com/repository/api/tags/library/vibecraft"
@@ -322,12 +322,12 @@ curl -X GET "https://cr.console.aliyun.com/repository/api/tags/library/vibecraft
 
 ```bash
 # 使用特定版本
-docker pull registry.cn-hangzhou.aliyuncs.com/library/vibecraft:v1.0.0
-docker run -d ... registry.cn-hangzhou.aliyuncs.com/library/vibecraft:v1.0.0
+docker pull registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:v1.0.0
+docker run -d ... registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:v1.0.0
 
 # 使用 stable 标签（推荐生产环境）
-docker pull registry.cn-hangzhou.aliyuncs.com/library/vibecraft:stable
-docker run -d ... registry.cn-hangzhou.aliyuncs.com/library/vibecraft:stable
+docker pull registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:stable
+docker run -d ... registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:stable
 ```
 
 ---
@@ -347,7 +347,7 @@ docker run -d ... registry.cn-hangzhou.aliyuncs.com/library/vibecraft:stable
 docker login --username=乐观山里娃 registry.cn-hangzhou.aliyuncs.com
 
 # 拉取
-docker pull registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+docker pull registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 
 # 运行（公网访问）
 docker run -d \
@@ -356,7 +356,7 @@ docker run -d \
   -p 4003:4003 \
   -v vibecraft-data:/home/vibecraft/.vibecraft \
   -e ALLOWED_ORIGINS="http://localhost:4002,http://YOUR-IP:4002" \
-  registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+  registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 
 # 查看日志
 docker logs -f vibecraft

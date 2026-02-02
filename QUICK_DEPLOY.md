@@ -130,8 +130,8 @@ docker run --rm \
 
 # 手动推送
 docker login --username=乐观山里娃 registry.cn-hangzhou.aliyuncs.com
-docker tag vibecraft:latest registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
-docker push registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+docker tag vibecraft:latest registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
+docker push registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 ```
 
 ### Docker Hub
@@ -157,7 +157,7 @@ docker push ghcr.io/username/vibecraft:latest
 docker login --username=乐观山里娃 registry.cn-hangzhou.aliyuncs.com
 
 # 2. 拉取镜像
-docker pull registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+docker pull registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 
 # 3. 运行容器
 docker run -d \
@@ -166,7 +166,7 @@ docker run -d \
   -p 4003:4003 \
   -v vibecraft-data:/home/vibecraft/.vibecraft \
   -e ALLOWED_ORIGINS="http://localhost:4002,http://YOUR-IP:4002" \
-  registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+  registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 ```
 
 ---

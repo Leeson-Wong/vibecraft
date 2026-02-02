@@ -9,7 +9,7 @@
 docker login --username=乐观山里娃 registry.cn-hangzhou.aliyuncs.com
 
 # 2. 拉取镜像
-docker pull registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+docker pull registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 
 # 3. 运行容器（解决WebSocket跨域问题）
 docker run -d \
@@ -19,7 +19,7 @@ docker run -d \
   -p 4003:4003 \
   -v vibecraft-data:/home/vibecraft/.vibecraft \
   -e ALLOWED_ORIGINS="http://localhost:4002,http://YOUR-IP:4002" \
-  registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+  registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 ```
 
 **访问地址**: `http://YOUR-IP:4002`
@@ -103,11 +103,11 @@ docker run --rm -v vibecraft-data:/data -v $(pwd):/backup alpine tar czf /backup
 
 ```
 仓库: registry.cn-hangzhou.aliyuncs.com
-命名空间: library
+命名空间: wls_gdd
 镜像: vibecraft
 标签: latest
 
-完整地址: registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+完整地址: registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 ```
 
 ---
@@ -190,7 +190,7 @@ docker run -d \
 .\push-aliyun.ps1
 
 # 5. 在生产服务器拉取并运行
-docker pull registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+docker pull registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 docker run -d \
   --name vibecraft \
   --restart unless-stopped \
@@ -198,5 +198,5 @@ docker run -d \
   -p 4003:4003 \
   -v vibecraft-data:/home/vibecraft/.vibecraft \
   -e ALLOWED_ORIGINS="http://localhost:4002,http://YOUR-IP:4002" \
-  registry.cn-hangzhou.aliyuncs.com/library/vibecraft:latest
+  registry.cn-hangzhou.aliyuncs.com/wls_gdd/vibecraft:latest
 ```
